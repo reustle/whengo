@@ -1,6 +1,12 @@
 
 // Subscribe to the stations db
-Meteor.subscribe('stations');
+Meteor.subscribe('stations', function(){
+	if(!L){
+		setTimeout(setMarkers, 100);
+	}else{
+		setMarkers();
+	}
+});
 
 // Set default search variables
 Session.setDefault('unit', 'F');
@@ -76,6 +82,8 @@ Template.searchForm.rendered = function(){
 		.slider({})
 		.change();
 	
+	// Set the default value for the month select field
+	$('select[data-field=month]').val(Session.get('month'));
 	
 };
 
@@ -202,12 +210,6 @@ Meteor.startup(function(){
 	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
 	window.map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([29, -26], 2);
 	window.mapMarkers = L.mapbox.featureLayer().addTo(map);
-
-	// Draw the markers initially
-	setTimeout(setMarkers, 1000);
-	
-	// Set the default value for the month select field
-	$('select[data-field=month]').val(Session.get('month'));
 	
 });
 
