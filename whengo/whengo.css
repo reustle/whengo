@@ -14,6 +14,15 @@ body {
 	height: 400px;
 }
 
+/* Loading Box */
+.loadingBox .progress {
+	margin-bottom: 3px;
+}
+.loadingBox .labelText {
+	font-size: 12px;
+	font-weight: bold;
+}
+
 /* Search Form */
 .searchForm {
 	min-height: 80px;

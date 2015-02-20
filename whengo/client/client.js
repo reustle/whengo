@@ -10,7 +10,13 @@ Session.setDefault('month', ((new Date()).getMonth()));
 
 // Search Form View
 
+//TOTAL_STATIONS = 1428;
+TOTAL_STATIONS = 7280;
+
 Template.searchForm.helpers({
+	loadedStations : function(){ return Stations.find().count(); },
+	totalStations : function(){ return TOTAL_STATIONS; },
+	percentLoaded : function(){ return Math.round((Stations.find().count() / TOTAL_STATIONS)*100) },
 	minTemp : function(){ return Session.get('minTemp'); },
 	maxTemp : function(){ return Session.get('maxTemp'); },
 	prettyMinTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
