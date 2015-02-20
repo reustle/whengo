@@ -3,10 +3,10 @@
 Meteor.subscribe('stations');
 
 // Set default search variables
-Session.setDefault('unit', 'C')
-Session.setDefault('minTemp', 23)
-Session.setDefault('maxTemp', 25)
-Session.setDefault('month', 0)
+Session.setDefault('unit', 'C');
+Session.setDefault('minTemp', 23);
+Session.setDefault('maxTemp', 25);
+Session.setDefault('month', ((new Date()).getMonth()));
 
 // Search Form View
 
@@ -20,7 +20,6 @@ Template.searchForm.helpers({
 	'maxTemp' : function(){
 		return Session.get('maxTemp');
 	}
-	// TODO month
 });
 
 Template.searchForm.events({
@@ -84,6 +83,9 @@ Template.mapView.helpers({
 		
 		return Stations.find(whereFields).count();
 		
+	},
+	totalStations : function(){
+		return Stations.find().count();
 	}
 });
 
@@ -160,12 +162,6 @@ window.setMarkers = function(){
 	
 };
 
-Meteor.startup(function(){
-	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
-	window.map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([29, -26], 2);
-	window.mapMarkers = L.mapbox.featureLayer().addTo(map);
-});
-
 // Navbar View
 
 Template.navbar.helpers({
@@ -187,7 +183,26 @@ Template.navbar.events({
 	}
 });
 
-// Spacebars helper
+
+// Meteor Startup
+
+Meteor.startup(function(){
+	
+	// Setup MapBox
+	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
+	window.map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([29, -26], 2);
+	window.mapMarkers = L.mapbox.featureLayer().addTo(map);
+
+	// Draw the markers initially
+	setTimeout(setMarkers, 1000);
+	
+	// Set the default value for the month select field
+	$('select[data-field=month]').val(Session.get('month'));
+	
+});
+
+// Spacebars helpers
+
 UI.registerHelper('equals', function (a, b) {
 	return a === b;
 });
