@@ -182,7 +182,7 @@ Template.navbar.events({
 		
 		// Redraw labels
 		// TODO this is kind of messy doing it here
-		$('input[data-field=tempRange').trigger('slide');
+		$('input[data-field=tempRange]').change();
 		
 	}
 });
