@@ -29,9 +29,8 @@ Template.searchForm.events({
 		$('span[data-label=sliderMin]').html(utils.prettyTemp(newMinTemp));
 		$('span[data-label=sliderMax]').html(utils.prettyTemp(newMaxTemp));
 		
-	},
-	
-	'click .slider-handle' : function(e){
+//	},
+//	'click .slider-handle' : function(e){
 		
 		// Grab the slider values
 		var sliderVal = $('input[data-field=tempRange]').val().split(',');
