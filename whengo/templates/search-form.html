@@ -3,21 +3,6 @@
 		
 		<form role='form' class='form-inline searchForm'>
 			
-			<div class='col-md-9 sliderContainer'>
-				
-				<input data-field='tempRange' type='text' value='' data-slider-min='0' data-slider-max='40' data-slider-step='1' data-slider-value='[{{ minTemp }},{{ maxTemp }}]' data-slider-tooltip='hide' />
-				
-				<div class='pull-right'>
-					<span data-label='maxTemp'></span>
-					&deg;{{ unit }}
-				</div>
-				<div>
-					<span data-label='minTemp'></span>
-					&deg;{{ unit }}
-				</div>
-			
-			</div>
-			
 			<div class='col-md-2'>
 				<select data-field='month' class='form-control'>
 					<option value='0'>January</option>
@@ -35,10 +20,13 @@
 				</select>
 			</div>
 			
-			<div class='col-md-1'>
-				<div class='form-group'>
-					<button type='button' class='btn btn-primary'>Submit</button>
-				</div>
+			<div class='col-md-10 sliderContainer'>
+				
+				<input data-field='tempRange' type='text' value='' data-slider-min='0' data-slider-max='40' data-slider-step='1' data-slider-value='[{{ minTemp }},{{ maxTemp }}]' data-slider-tooltip='hide' />
+				
+				<div class='pull-right'><span data-label='sliderMax'></span></div>
+				<span data-label='sliderMin'></span>
+			
 			</div>
 			
 		</form>

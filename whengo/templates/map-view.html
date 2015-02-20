@@ -3,7 +3,9 @@
 		
 		<div id='mapContainer'></div>
 		
-		<em>{{ stationCount }} of {{ totalStations }} weather stations</em>
+		<div class='statusLine'>
+			<b>{{ stationCount }}</b> weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
+		</div>
 		
 	</div>
 </template>

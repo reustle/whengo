@@ -3,7 +3,7 @@
 Meteor.subscribe('stations');
 
 // Set default search variables
-Session.setDefault('unit', 'C');
+Session.setDefault('unit', 'F');
 Session.setDefault('minTemp', 23);
 Session.setDefault('maxTemp', 25);
 Session.setDefault('month', ((new Date()).getMonth()));
@@ -11,56 +11,66 @@ Session.setDefault('month', ((new Date()).getMonth()));
 // Search Form View
 
 Template.searchForm.helpers({
-	'unit' : function(){
-		return Session.get('unit');
-	},
-	'minTemp' : function(){
-		return Session.get('minTemp');
-	},
-	'maxTemp' : function(){
-		return Session.get('maxTemp');
-	}
+	minTemp : function(){ return Session.get('minTemp'); },
+	maxTemp : function(){ return Session.get('maxTemp'); },
+	prettyMinTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
+	prettyMaxTemp : function(){ return utils.prettyTemp(Session.get('maxTemp')); }
 });
 
 Template.searchForm.events({
-	'click button' : function(){
-		
+	
+	'change input[data-field=tempRange]' : function(e){
+	
+		// Grab the slider values
 		var sliderVal = $('input[data-field=tempRange]').val().split(',');
+		var newMinTemp = parseInt(sliderVal[0], 10);
+		var newMaxTemp = parseInt(sliderVal[1], 10);
 		
-		var minTemp = parseInt(sliderVal[0], 10);
-		var maxTemp = parseInt(sliderVal[1], 10);
-		var month = document.querySelector('[data-field=month]').value;
+		$('span[data-label=sliderMin]').html(utils.prettyTemp(newMinTemp));
+		$('span[data-label=sliderMax]').html(utils.prettyTemp(newMaxTemp));
 		
-		Session.set('minTemp', parseFloat(minTemp));
-		Session.set('maxTemp', parseFloat(maxTemp));
-		Session.set('month', parseInt(month, 10));
+	},
+	
+	'click .slider-handle' : function(e){
+		
+		// Grab the slider values
+		var sliderVal = $('input[data-field=tempRange]').val().split(',');
+		var newMinTemp = parseInt(sliderVal[0], 10);
+		var newMaxTemp = parseInt(sliderVal[1], 10);
+		
+		// Hold onto the old values
+		var oldMinTemp = Session.get('minTemp');
+		var oldMaxTemp = Session.get('maxTemp');
+		
+		// Save the new values
+		Session.set('minTemp', newMinTemp);
+		Session.set('maxTemp', newMaxTemp);
+		
+		// Update the markers if the values changed
+		if(oldMinTemp != newMinTemp || oldMaxTemp != newMaxTemp){
+			setMarkers();
+		}
+		
+	},
+	
+	'change select[data-field=month]' : function(e){
+		
+		Session.set('month', parseInt(e.target.value, 10));
 		
 		setMarkers();
+		
 	}
+	
 });
 
 Template.searchForm.rendered = function(){
 	
-	var processTemp = function(temp){
-		if(Session.get('unit') == 'C'){
-			return temp;
-		}
-		
-		return Math.round(temp * 9 / 5 + 32);
-	}
-	
-	// Do this here because we don't want it to be reactive
-	$('span[data-label=minTemp]').html(processTemp(Session.get('minTemp')));
-	$('span[data-label=maxTemp]').html(processTemp(Session.get('maxTemp')));
-	
+	// Init the slider
+	// Also, fire the slide event once so the labels get drawn
 	$('input[data-field=tempRange]')
 		.slider({})
-		.on('slide', function(slideEvent){
-			var sliderVal = $('input[data-field=tempRange]').val().split(',');
-			
-			$('span[data-label=minTemp]').html(processTemp(sliderVal[0]));
-			$('span[data-label=maxTemp]').html(processTemp(sliderVal[1]));
-		});
+		.change();
+	
 	
 };
 
@@ -84,57 +94,53 @@ Template.mapView.helpers({
 		return Stations.find(whereFields).count();
 		
 	},
-	totalStations : function(){
-		return Stations.find().count();
-	}
+	unit : function(){ return Session.get('unit'); },
+	minTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
+	maxTemp : function(){ return utils.prettyTemp(Session.get('maxTemp')); },
+	monthName : function(){ return MONTHS[Session.get('month')]; }
 });
 
-window.setMarkers = function(){
+setMarkers = function(){
 	
 	// Load the search parameters
 	var minTemp = Session.get('minTemp');
 	var maxTemp = Session.get('maxTemp');
 	var month = Session.get('month');
 	
+	// Build the query
 	var avgTempKey = 'avgt.' + month;
-	
 	var whereFields = {};
 	whereFields[avgTempKey] = {
 		$gte : minTemp,
 		$lte : maxTemp
 	};
 	
-	// Query the data
+	// Run the query
 	var results = Stations.find(whereFields).fetch();
 	
-	// Clear existing markers
-	//
-	
-	// Add the new markers
+	// Create a new mapbox FeatureCollection
 	var markers = {
 		type: 'FeatureCollection',
 		features : []
 	};
 	
-	// Create a custom marker
+	// Create a custom marker icon (circle icon)
 	var markerIcon = L.icon({
-		iconUrl : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NUlH5v9rF5f+ZoCAwHaig8B8oPhOmKC1NU/P//7Q0DByrqgpSGAtSdOCAry9WRXt9fECK9oIUPXwYFYVV0e2ICJCi20SbFAuyG5uiECUlkKIQmOPng3y30d0d7Lt1bm4w301jQAOgcNoIDad1yOEEAFm9fSv/VqtJAAAAAElFTkSuQmCC', //red
+		iconUrl : 'http://whengoio.meteor.com/dot.png',
 		iconSize : [9,9],
 		iconAnchor : [4,4]
 	});
 	
-	// Insert each geojson point
+	// Create and insert a marker for each result station into the featurecollection
 	_.each(results, function(station){
 		
 		var thisTempC = parseInt(station.avgt[month], 10);
-		var thisTempF = Math.round(thisTempC * 9 / 5 + 32);
+		var thisTempF = utils.cToF(thisTempC);
 		
 		markers.features.push({
 			type : 'Feature',
 			geometry : {
 				type : 'Point',
-				// coordinates here are in longitude, latitude order because
-				// x, y is the standard for GeoJSON and many formats
 				coordinates : [
 					station.loc.lon,
 					station.loc.lat
@@ -142,22 +148,21 @@ window.setMarkers = function(){
 			},
 			properties : {
 				title : station.name,
-				description : thisTempC + '&deg;C (' + thisTempF + '&deg;F)'
+				// Hardcode them since they won't be reactive to unit changes
+				description : thisTempF + '&deg;F (' + thisTempC + '&deg;C)'
 
 			}
 		});
 	});
 	
-	// Update the layer with the new data
+	// Update map with the new data
 	mapMarkers.setGeoJSON(markers);
 	
-	// Go through and update each icon
+	// Go through and update each icon with the new icon (lame)
 	map.eachLayer(function(marker){
-		if(!marker.setIcon){
-			return;
+		if(marker.setIcon){
+			marker.setIcon(markerIcon);
 		}
-		
-		marker.setIcon(markerIcon);
 	});
 	
 };
@@ -200,6 +205,22 @@ Meteor.startup(function(){
 	$('select[data-field=month]').val(Session.get('month'));
 	
 });
+
+// General Utils
+
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+utils = {
+	cToF : function(temp){
+		return Math.round(temp * 9 / 5 + 32);
+	},
+	prettyTemp : function(temp){
+		if(Session.get('unit') == 'F'){
+			return utils.cToF(temp) + '&deg;F';
+		}
+		return Math.round(temp) + '&deg;C';
+	}
+}
 
 // Spacebars helpers
 
