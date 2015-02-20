@@ -16,9 +16,8 @@ body {
 
 /* Search Form */
 .searchForm {
-	height: 80px;
-	padding-top: 20px;
-	text-align: right;
+	min-height: 80px;
+	padding: 20px 0px;
 }
 
 .sliderContainer {
