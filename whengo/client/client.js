@@ -2,7 +2,7 @@
 // Subscribe to the stations db
 Meteor.subscribe('stations', function(){
 	if(!L){
-		setTimeout(setMarkers, 100);
+		setTimeout(setMarkers, 1000);
 	}else{
 		setMarkers();
 	}
