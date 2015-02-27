@@ -5,12 +5,17 @@ Meteor.publish('stations', function(){
 		
 		// Only send stations to the client that
 		// represent a population of 500k or more
-		pop : { $gte : 100000 }
+		//pop : { $gte : 100000 }
 		
 	});
 });
 
 Meteor.methods({
+	
+	getStationCount : function(){
+		return Stations.find().count();
+	},
+	
 	bootstrapData : function(password){
 		
 		// Authenticate

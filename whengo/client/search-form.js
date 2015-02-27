@@ -1,7 +1,7 @@
 Template.searchForm.helpers({
 	loadedStations : function(){ return Stations.find().count(); },
-	totalStations : function(){ return TOTAL_STATIONS; },
-	percentLoaded : function(){ return Math.round((Stations.find().count() / TOTAL_STATIONS)*100) },
+	totalStations : function(){ return Session.get('stationCount'); },
+	percentLoaded : function(){ return Math.round((Stations.find().count() / Session.get('stationCount'))*100) },
 	minTemp : function(){ return Session.get('minTemp'); },
 	maxTemp : function(){ return Session.get('maxTemp'); },
 	prettyMinTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
@@ -19,9 +19,6 @@ Template.searchForm.events({
 		
 		$('span[data-label=sliderMin]').html(utils.prettyTemp(newMinTemp));
 		$('span[data-label=sliderMax]').html(utils.prettyTemp(newMaxTemp));
-		
-//	},
-//	'click .slider-handle' : function(e){
 		
 		// Grab the slider values
 		var sliderVal = $('input[data-field=tempRange]').val().split(',');

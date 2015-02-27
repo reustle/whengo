@@ -1,6 +1,3 @@
-TOTAL_STATIONS = 1428;
-//TOTAL_STATIONS = 7280;
-
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 utils = {

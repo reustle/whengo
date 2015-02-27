@@ -24,9 +24,7 @@ Template.pageBody.events({
 		
 		var minPopulation = parseInt($('select[data-field=minPopulation]').val(), 10);
 		
-		if(minPopulation > 0){
-			Session.set('minPopulation', minPopulation);
-		}
+		Session.set('minPopulation', minPopulation);
 		
 		setMarkers();
 		

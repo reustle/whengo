@@ -1,3 +1,20 @@
+// Set default values
+Session.setDefault('unit', 'F');
+Session.setDefault('minTemp', 23);
+Session.setDefault('maxTemp', 25);
+Session.setDefault('minPopulation', 1000000);
+Session.setDefault('renderLimit', 250);
+Session.setDefault('month', ((new Date()).getMonth()));
+Session.setDefault('stationCount', 10000);
+
+// Grab the number of stations we expect to load
+Meteor.call('getStationCount', function(err, numStations){
+	if(err){
+		console.log(err);
+	}
+	Session.set('stationCount', numStations);
+});
+
 // Subscribe to the stations db
 Meteor.subscribe('stations', function(){
 	
@@ -11,14 +28,6 @@ Meteor.subscribe('stations', function(){
 	drawOnceMapboxExists();
 	
 });
-
-// Set default search variables
-Session.setDefault('unit', 'F');
-Session.setDefault('minTemp', 23);
-Session.setDefault('maxTemp', 25);
-Session.setDefault('minPopulation', 1000000);
-Session.setDefault('renderLimit', 250);
-Session.setDefault('month', ((new Date()).getMonth()));
 
 // Meteor Startup
 
