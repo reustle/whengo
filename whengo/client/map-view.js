@@ -2,24 +2,9 @@ Template.mapView.helpers({
 	
 	stationCount : function(){
 		
-		var minTemp = Session.get('minTemp');
-		var maxTemp = Session.get('maxTemp');
-		var month = Session.get('month');
+		var stations = queryStations();
 		
-		var avgTempKey = 'avgt.' + month;
-		
-		var whereFields = {
-			pop : {
-				$gte : Session.get('minPopulation')
-			}
-		};
-		
-		whereFields[avgTempKey] = {
-			$gte : minTemp,
-			$lte : maxTemp
-		};
-		
-		return Stations.find(whereFields).count();
+		return stations.length;
 		
 	},
 	
@@ -38,16 +23,20 @@ Template.mapView.helpers({
 	monthName : function(){ return MONTHS[Session.get('month')]; }
 });
 
-setMarkers = function(){
+queryStations = function(){
 	
 	// Load the search parameters
 	var minTemp = Session.get('minTemp');
 	var maxTemp = Session.get('maxTemp');
 	var month = Session.get('month');
 	
+	if(!window.map){
+		return [];
+	}
+	
 	// Load the map visible area (bounds)
-	var mapNW = map.getBounds().getNorthWest();
-	var mapSE = map.getBounds().getSouthEast();
+	var mapNW = window.map.getBounds().getNorthWest();
+	var mapSE = window.map.getBounds().getSouthEast();
 	
 	// Build the query
 	var whereFields = {
@@ -68,8 +57,7 @@ setMarkers = function(){
 		
 	};
 	
-	var avgTempKey = 'avgt.' + month;
-	whereFields[avgTempKey] = {
+	whereFields[('avgt.' + month)] = {
 		$gte : minTemp,
 		$lte : maxTemp
 	};
@@ -82,6 +70,16 @@ setMarkers = function(){
 		sort : { pop : -1 }
 		
 	}).fetch();
+	
+	return results;
+	
+}
+
+setMarkers = function(){
+	
+	var results = queryStations();
+	
+	var month = Session.get('month');
 	
 	// Create a new mapbox FeatureCollection
 	var markers = {

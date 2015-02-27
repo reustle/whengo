@@ -18,8 +18,8 @@ UI.registerHelper('equals', function (a, b) {
 	return a === b;
 });
 
-UI.registerHelper('gt', function (a, b) {
-	return a > b;
+UI.registerHelper('gte', function (a, b) {
+	return a >= b;
 });
 
 UI.registerHelper('prettyNum', function (a) {

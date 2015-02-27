@@ -4,10 +4,10 @@
 		<div id='mapContainer'></div>
 		
 		<div class='status-line'>
-			<b>{{ prettyNum stationCount }}</b> of {{ prettyNum totalStationCount }} weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
+			<b>{{ prettyNum stationCount }}{{#if gte stationCount renderLimit }}+{{/if}}</b> of {{ prettyNum totalStationCount }} weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
 		</div>
 		
-		{{#if gt stationCount renderLimit }}
+		{{#if gte stationCount renderLimit }}
 			<div class='too-many-results'>
 				<div class='alert alert-warning'>
 					<strong>Warning</strong>: Only showing {{ renderLimit }} results. Update your settings below.

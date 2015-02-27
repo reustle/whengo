@@ -38,6 +38,12 @@ Template.pageBody.events({
 		
 		setMarkers();
 		
+	},
+	
+	'click a[data-action=upgrade]' : function(e){
+		e.preventDefault();
+		
+		alert('Soon! :) ');
 	}
 	
 });

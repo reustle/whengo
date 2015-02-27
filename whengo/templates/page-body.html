@@ -3,12 +3,21 @@
 		<div class='col-md-5 col-md-offset-1'>
 			
 			<h1>When Go?</h1>
-			<p></p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies odio libero, sed volutpat orci blandit ut. Nulla sit amet auctor justo. Duis ut arcu orci. Vivamus id sagittis mi. Suspendisse lectus tellus, mollis finibus lectus venenatis, sollicitudin bibendum dolor. Aliquam ut molestie leo. Maecenas vel quam purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vitae lectus orci. Maecenas sit amet mauris ligula. In efficitur pellentesque bibendum. Pellentesque ligula lectus, congue eu mi sit amet, accumsan ultricies lacus.</p>
+			<p>When Go is a tool which allows you to easily search through average temperateure data from weather stations around the world per month.</p>
+			
+			<h1>Full Access</h1>
+			<p>Upgrading your account, which costs $1 for life, will unlock over 7,000 weather stations.</p>
+			
+			<h1>About the Data</h1>
+			<p>The data is provided by the <a href='http://www.noaa.gov'>National Oceanic and Atmospheric Administration</a> and is calculated using the average monthly temperature over the past 10 years.</p>
 			
 		</div>
 		<div class='col-md-5'>
 			<div class='well'>
+				
+				<div class='pull-right'>
+					<a class='btn btn-sm btn-primary' data-action='upgrade'>Upgrade Account &minus; &#36;1 for life</a>
+				</div>
 				
 				<h1>Settings</h1>
 				
@@ -18,8 +27,8 @@
 						<label class='control-label col-md-4'>Units</label>
 						<div class='col-md-8'>
 							<div class='btn-group' role='group'>
-								<a href='#' class='btn {{#if equals unit 'C' }} btn-primary {{else}} btn-default {{/if}}' data-unit='C' data-field='unit'>Celcius</a>
-								<a href='#' class='btn {{#if equals unit 'F' }} btn-primary {{else}} btn-default {{/if}}' data-unit='F' data-field='unit'>Fahrenheit</a>
+								<a href='#' class='btn btn-default {{#if equals unit 'C' }} disabled {{/if}}' data-unit='C' data-field='unit'>Celcius</a>
+								<a href='#' class='btn btn-default {{#if equals unit 'F' }} disabled {{/if}}' data-unit='F' data-field='unit'>Fahrenheit</a>
 							</div>
 						</div>
 					</div>
