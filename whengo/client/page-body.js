@@ -53,6 +53,9 @@ Template.pageBody.events({
 	'click a[data-action=upgrade]' : function(e){
 		e.preventDefault();
 		
+		alert('Coming Soon!');
+		return;
+		
 		if(!Meteor.user()){
 			alert('Please first sign in or create an account (link in the upper right-hand corner)');
 			return;
