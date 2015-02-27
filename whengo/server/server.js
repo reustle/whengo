@@ -67,7 +67,7 @@ Meteor.methods({
 		//setTimeout(Meteor.bindEnvironment(function(){
 		
 		Stripe.charges.create({
-			amount : 100,
+			amount : 500,
 			currency : 'USD',
 			card : cardDetails
 		}, Meteor.bindEnvironment(function(err, res){
