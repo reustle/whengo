@@ -1,4 +1,5 @@
 Template.mapView.helpers({
+	
 	stationCount : function(){
 		
 		var minTemp = Session.get('minTemp');
@@ -16,6 +17,8 @@ Template.mapView.helpers({
 		return Stations.find(whereFields).count();
 		
 	},
+	
+	totalStationCount : function(){ return Stations.find().count(); },
 	unit : function(){ return Session.get('unit'); },
 	minTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
 	maxTemp : function(){ return utils.prettyTemp(Session.get('maxTemp')); },

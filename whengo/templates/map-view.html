@@ -3,15 +3,20 @@
 		
 		<div id='mapContainer'></div>
 		
+		<div class='status-line'>
+			<b>{{ prettyNum stationCount }}</b> of {{ prettyNum totalStationCount }} weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
+		</div>
+		
 		{{#if gt stationCount '500'}}
 			<div class='too-many-results'>
-				<div class='alert alert-warning'><strong>Warning</strong>: Your query is returning more than 500 weather stations. Tighten your temperature range or zoom in on the map to see all results.</div>
+				<div class='alert alert-warning'>
+					<div class='pull-right'>
+						<a href='#'>Show All</a>
+					</div>
+					<strong>Warning</strong>: Your query is returning more than 500 weather stations. Only showing 500 results.
+				</div>
 			</div>
 		{{/if}}
-		
-		<div class='status-line'>
-			<b>{{ prettyNum stationCount }}</b> weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
-		</div>
 		
 	</div>
 </template>
