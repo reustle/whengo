@@ -6,7 +6,7 @@
 			<p>When Go is a tool that allows you to easily search through average temperateure data from weather stations around the world per month.</p>
 			
 			<h1>Full Access</h1>
-			<p>Upgrade your account for a one time fee of $1 to unlock over 7,000 weather stations and expanded filtering capabilities (see the form to the right).</p>
+			<p>Upgrade your account for a one time fee of $1 to unlock over 7,000 weather stations and expanded filtering capabilities.</p>
 			
 			<h1>About the Data</h1>
 			<p>The data is provided by the <a href='http://www.noaa.gov'>National Oceanic and Atmospheric Administration</a> and is calculated using the average monthly temperature over the past 10 years.</p>
@@ -16,7 +16,8 @@
 			<div class='well'>
 				
 				<div class='pull-right'>
-					<a class='btn btn-sm btn-primary' data-action='upgrade'>Upgrade Account &minus; &#36;1 for life</a>
+					{{#unless currentUser.profile.upgraded }}<a class='btn btn-sm btn-primary' data-action='upgrade'>Upgrade Account &minus; &#36;1 for life</a>{{/unless}}
+					{{#if currentUser.profile.upgraded }}<em>Thanks for upgrading!</em>{{/if}}
 				</div>
 				
 				<h1>Settings</h1>

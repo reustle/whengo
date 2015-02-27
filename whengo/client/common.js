@@ -1,7 +1,7 @@
 // Set default values
 Session.setDefault('unit', 'F');
-Session.setDefault('minTemp', 21);
-Session.setDefault('maxTemp', 26);
+Session.setDefault('minTemp', 19);
+Session.setDefault('maxTemp', 29);
 Session.setDefault('minPopulation', 1000000);
 Session.setDefault('renderLimit', 250);
 Session.setDefault('month', ((new Date()).getMonth()));
@@ -10,12 +10,25 @@ Session.setDefault('resultsCount', 0);
 Session.setDefault('stationCount', 10000);
 
 // Grab the number of stations we expect to load
-Meteor.call('getStationCount', function(err, numStations){
-	if(err){
-		console.log(err);
-	}
-	Session.set('stationCount', numStations);
-});
+var loadStationCount = function(){
+	Meteor.call('getStationCount', function(err, numStations){
+		if(err){
+			console.log(err);
+		}
+		Session.set('stationCount', numStations);
+	});
+}
+loadStationCount();
+
+Hooks.onLoggedIn = function(){
+	console.log('logged in');
+	loadStationCount();
+}
+Hooks.onLoggedOut = function(){
+	console.log('logged out');
+	loadStationCount();
+}
+
 
 // Subscribe to the stations db
 Meteor.subscribe('stations', function(){
@@ -34,6 +47,8 @@ Meteor.subscribe('stations', function(){
 // Meteor Startup
 
 Meteor.startup(function(){
+	
+	Hooks.init([{}]);
 	
 	// Setup MapBox
 	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
