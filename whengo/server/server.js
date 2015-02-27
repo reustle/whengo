@@ -1,3 +1,5 @@
+//Stations._ensureIndex({ loc : '2d' });
+
 Meteor.publish('stations', function(){
 	return Stations.find({
 		
@@ -26,8 +28,12 @@ Meteor.methods({
 		var counter = 0;
 		// Insert new station data
 		_.each(stationData, function(station){
-			
 			counter++;
+			
+			//station.loc = {
+			//	type : 'Point',
+			//	coordinates : [station.loc.lon , station.loc.lat]
+			//};
 			console.log(JSON.stringify(station));
 			
 			Stations.insert(station);
