@@ -22,8 +22,13 @@ Template.pageBody.events({
 	
 	'change select[data-field=minPopulation]' : function(){
 		
-		var minPopulation = parseInt($('select[data-field=minPopulation]').val(), 10);
+		if(!Meteor.user() || !Meteor.user().profile.upgraded){
+			alert('Please upgrade your account');
+			$('select[data-field=minPopulation]').val(Session.get('minPopulation'));
+			return;
+		}
 		
+		var minPopulation = parseInt($('select[data-field=minPopulation]').val(), 10);
 		Session.set('minPopulation', minPopulation);
 		
 		setMarkers();
@@ -32,8 +37,13 @@ Template.pageBody.events({
 	
 	'change select[data-field=renderLimit]' : function(){
 		
-		var renderLimit = parseInt($('select[data-field=renderLimit]').val(), 10);
+		if(!Meteor.user() || !Meteor.user().profile.upgraded){
+			alert('Please upgrade your account');
+			$('select[data-field=renderLimit]').val(Session.get('renderLimit'));
+			return;
+		}
 		
+		var renderLimit = parseInt($('select[data-field=renderLimit]').val(), 10);
 		Session.set('renderLimit', renderLimit);
 		
 		setMarkers();

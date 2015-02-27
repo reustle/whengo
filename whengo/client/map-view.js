@@ -2,9 +2,7 @@ Template.mapView.helpers({
 	
 	stationCount : function(){
 		
-		var stations = queryStations();
-		
-		return stations.length;
+		return Session.get('resultsCount');
 		
 	},
 	
@@ -70,6 +68,8 @@ queryStations = function(){
 		sort : { pop : -1 }
 		
 	}).fetch();
+	
+	Session.set('resultsCount', results.length);
 	
 	return results;
 	
