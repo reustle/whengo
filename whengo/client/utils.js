@@ -25,3 +25,7 @@ UI.registerHelper('gt', function (a, b) {
 	return a > b;
 });
 
+UI.registerHelper('prettyNum', function (a) {
+	return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+});
+
