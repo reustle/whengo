@@ -8,3 +8,6 @@ meteor-platform
 insecure
 twbs:bootstrap
 fourseven:scss
+accounts-password
+accounts-facebook
+ian:accounts-ui-bootstrap-3

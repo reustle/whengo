@@ -1,5 +1,5 @@
 <template name='mapView'>
-	<div class='col-md-12'>
+	<div class='col-md-12 map-area'>
 		
 		<div id='mapContainer'></div>
 		
@@ -7,13 +7,10 @@
 			<b>{{ prettyNum stationCount }}</b> of {{ prettyNum totalStationCount }} weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
 		</div>
 		
-		{{#if gt stationCount '500'}}
+		{{#if gt stationCount renderLimit }}
 			<div class='too-many-results'>
 				<div class='alert alert-warning'>
-					<div class='pull-right'>
-						<a href='#'>Show All</a>
-					</div>
-					<strong>Warning</strong>: Your query is returning more than 500 weather stations. Only showing 500 results.
+					<strong>Warning</strong>: Only showing {{ renderLimit }} results. Update your settings below.
 				</div>
 			</div>
 		{{/if}}

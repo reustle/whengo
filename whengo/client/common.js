@@ -16,30 +16,9 @@ Meteor.subscribe('stations', function(){
 Session.setDefault('unit', 'F');
 Session.setDefault('minTemp', 23);
 Session.setDefault('maxTemp', 25);
+Session.setDefault('minPopulation', 1000000);
+Session.setDefault('renderLimit', 250);
 Session.setDefault('month', ((new Date()).getMonth()));
-
-// Search Form View
-
-
-Template.navbar.helpers({
-	'unit' : function(){
-		return Session.get('unit');
-	}
-});
-
-Template.navbar.events({
-	'click .unitBtn' : function(e){
-		e.preventDefault();
-		
-		Session.set('unit', $(e.target).attr('data-unit'));
-		
-		// Redraw labels
-		// TODO this is kind of messy doing it here
-		$('input[data-field=tempRange]').change();
-		
-	}
-});
-
 
 // Meteor Startup
 

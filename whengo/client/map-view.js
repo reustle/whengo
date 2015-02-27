@@ -8,7 +8,12 @@ Template.mapView.helpers({
 		
 		var avgTempKey = 'avgt.' + month;
 		
-		var whereFields = {};
+		var whereFields = {
+			pop : {
+				$gte : Session.get('minPopulation')
+			}
+		};
+		
 		whereFields[avgTempKey] = {
 			$gte : minTemp,
 			$lte : maxTemp
@@ -18,7 +23,15 @@ Template.mapView.helpers({
 		
 	},
 	
-	totalStationCount : function(){ return Stations.find().count(); },
+	totalStationCount : function(){
+		return Stations.find({
+			pop : {
+				$gte : Session.get('minPopulation')
+			}
+		}).count();
+	},
+	
+	renderLimit : function(){ return Session.get('renderLimit'); },
 	unit : function(){ return Session.get('unit'); },
 	minTemp : function(){ return utils.prettyTemp(Session.get('minTemp')); },
 	maxTemp : function(){ return utils.prettyTemp(Session.get('maxTemp')); },
@@ -47,6 +60,10 @@ setMarkers = function(){
 		'loc.lat' : {
 			$gte : mapSE.lat,
 			$lte : mapNW.lat
+		},
+		
+		pop : {
+			$gte : Session.get('minPopulation')
 		}
 		
 	};
@@ -58,7 +75,13 @@ setMarkers = function(){
 	};
 	
 	// Run the query
-	var results = Stations.find(whereFields, { limit : 500 }).fetch();
+	var results = Stations.find(whereFields, {
+		
+		limit : Session.get('renderLimit'),
+		
+		sort : { pop : -1 }
+		
+	}).fetch();
 	
 	// Create a new mapbox FeatureCollection
 	var markers = {
