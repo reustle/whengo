@@ -100,6 +100,9 @@ setMarkers = function(){
 		var thisTempC = parseInt(station.avgt[month], 10);
 		var thisTempF = utils.cToF(thisTempC);
 		
+		var markerDesc = thisTempF + '&deg;F (' + thisTempC + '&deg;C)';
+		markerDesc += '<br/><a href="#" data-station="" data-action="showYearGraph">View Yearly Averages Graph</a>';
+		
 		markers.features.push({
 			type : 'Feature',
 			geometry : {
@@ -112,7 +115,7 @@ setMarkers = function(){
 			properties : {
 				title : station.name,
 				// Hardcode them since they won't be reactive to unit changes
-				description : thisTempF + '&deg;F (' + thisTempC + '&deg;C)'
+				description : markerDesc
 
 			}
 		});
