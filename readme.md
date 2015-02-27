@@ -4,7 +4,8 @@ whengo.io
 Where is it warm?
 
 Tasks
-* Purchase access to full dataset and settings for $0.99
+* Show loading bar before actually loading as soon as you log in (currently hangs)
+* Replace alerts with modals
 * Monthly avg chart when you click a station
 * Set map language to all English
 * Find dataset with avg high temp (vs avg temp, because cool nights skew it)

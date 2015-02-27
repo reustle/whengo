@@ -10,45 +10,50 @@ Session.setDefault('resultsCount', 0);
 Session.setDefault('stationCount', 10000);
 
 // Grab the number of stations we expect to load
-var loadStationCount = function(){
+loadStationCount = function(){
 	Meteor.call('getStationCount', function(err, numStations){
 		if(err){
 			console.log(err);
 		}
 		Session.set('stationCount', numStations);
+		
+		// Don't subscribe until we have loaded the total #
+		subscribeToStations();
+		
 	});
 }
 loadStationCount();
 
 Hooks.onLoggedIn = function(){
-	console.log('logged in');
 	loadStationCount();
 }
 Hooks.onLoggedOut = function(){
-	console.log('logged out');
 	loadStationCount();
 }
 
-
-// Subscribe to the stations db
-Meteor.subscribe('stations', function(){
-	
-	var drawOnceMapboxExists = function(){
-		if(typeof(window.mapMarkers) != 'undefined'){
-			setMarkers();
-		}else{
-			setTimeout(drawOnceMapboxExists, 250);
+subscribeToStations = function(){
+	// Subscribe to the stations db
+	Meteor.subscribe('stations', function(){
+		
+		var drawOnceMapboxExists = function(){
+			if(typeof(window.mapMarkers) != 'undefined'){
+				setMarkers();
+			}else{
+				setTimeout(drawOnceMapboxExists, 250);
+			}
 		}
-	}
-	drawOnceMapboxExists();
-	
-});
+		drawOnceMapboxExists();
+		
+	});
+}
 
 // Meteor Startup
 
 Meteor.startup(function(){
 	
 	Hooks.init([{}]);
+	
+	Stripe.setPublishableKey('pk_test_UMtwN1Xzh75g0wPIPQpmZmXE');
 	
 	// Setup MapBox
 	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';

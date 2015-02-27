@@ -8,12 +8,17 @@
 		</div>
 		
 		{{#if gte stationCount renderLimit }}
-			<div class='too-many-results'>
-				<div class='alert alert-warning'>
-					<strong>Warning</strong>: Only showing {{ renderLimit }} results. Update your settings below.
-				</div>
+			<div class='alert alert-warning'>
+				<strong>Heads Up</strong>: Only showing {{ renderLimit }} results. Update your settings below.
+			</div>
+		{{/if}}		
+		
+		{{#if gte stationCount '500' }}
+			<div class='alert alert-info'>
+				<strong>Tip</strong>: Since there are so many results, drawing the pins on the map takes some time. You can reduce the number of results by narrowing your temperature range, or by zooming in on the map.
 			</div>
 		{{/if}}
+	
 		
 	</div>
 </template>

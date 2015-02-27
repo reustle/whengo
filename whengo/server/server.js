@@ -1,3 +1,4 @@
+var Stripe = StripeAPI('sk_test_WmgOPyMAkr3JWzMMSOkUhNnp');
 
 Meteor.publish('stations', function(){
 	
@@ -43,7 +44,81 @@ Meteor.methods({
 		
 	},
 	
-	toggleUpgrade : function(){
+	upgrade : function(cardDetails){
+		// Charge the user REAL MONEY OMG $$$$
+		
+		var userId = this.userId;
+		var thisUser = Meteor.users.findOne({ _id : userId });
+		
+		if(!thisUser){
+			return false;
+		}
+		
+		// Remove any previous transaction errors
+		Meteor.users.update({
+			_id : userId
+		}, {
+			$set : {
+				'profile.transactionError' : false
+			}
+		});
+		
+		// TEST LONG RESPONSE TIME
+		//setTimeout(Meteor.bindEnvironment(function(){
+		
+		Stripe.charges.create({
+			amount : 100,
+			currency : 'USD',
+			card : cardDetails
+		}, Meteor.bindEnvironment(function(err, res){
+			
+			var error = false;
+			
+			if(err){
+				// Did stripe return an error?
+				
+				error = {
+					success : false,
+					message : err.message
+				}
+			}else if(!res.paid){
+				// Did the transaction not say paid?
+				
+				error = {
+					success : false,
+					message : 'Unknown error, please contact us (link in footer)'
+				}
+			}
+			
+			// Save our error, or set the user to upgraded
+			var updateFields = {};
+			
+			if(error){
+				updateFields = {
+					'profile.transactionError' : error.message
+				}
+			}else{
+				updateFields = {
+					'profile.upgraded' : true,
+					'profile.transactionError' : false,
+					'profile.transactionId' : res.id
+				};
+			}
+			
+			Meteor.users.update({
+				_id : userId
+			}, {
+				$set : updateFields
+			});
+			
+		}));
+		
+		// TEST LONG RESPONSE TIME
+		//}), 8000);
+			
+	},
+	
+	downgrade : function(){
 		
 		var userId = this.userId;
 		var thisUser = Meteor.users.findOne({ _id : userId });
@@ -53,17 +128,12 @@ Meteor.methods({
 			return false;
 		}
 		
-		console.log(thisUser);
-		
-		if(thisUser.profile.upgraded){
-			console.log('setting to false');
-			Meteor.users.update({ _id : userId }, { $set : { 'profile.upgraded' : false } });
-		}else{
-			console.log('setting to true');
-			Meteor.users.update({ _id : userId }, { $set : { 'profile.upgraded' : true } });
-		}
-		
-		return true;
+		Meteor.users.update({ _id : userId }, {
+			$set : {
+				'profile.transactionError' : false,
+				'profile.upgraded' : false
+			}
+		});
 		
 	},
 	
