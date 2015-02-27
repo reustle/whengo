@@ -1,11 +1,9 @@
-//Stations._ensureIndex({ loc : '2d' });
 
 Meteor.publish('stations', function(){
 	return Stations.find({
 		
-		// Only send stations to the client that
-		// represent a population of 500k or more
-		//pop : { $gte : 100000 }
+		// TODO MANUAL FILTER
+		pop : { $gte : 100000 }
 		
 	});
 });
@@ -13,7 +11,12 @@ Meteor.publish('stations', function(){
 Meteor.methods({
 	
 	getStationCount : function(){
-		return Stations.find().count();
+		return Stations.find({
+			
+			// TODO MANUAL FILTER
+			pop : { $gte : 100000 }
+			
+		}).count();
 	},
 	
 	bootstrapData : function(password){
