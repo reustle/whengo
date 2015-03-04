@@ -4,6 +4,8 @@ whengo.io
 Where is it warm?
 
 Tasks
+* Wider temp range when upgraded
+* When clicking a point, pop a modal with the details and year graph
 * Show loading bar before actually loading as soon as you log in (currently hangs)
 * Replace alerts with modals
 * Monthly avg chart when you click a station
