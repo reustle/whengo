@@ -7,7 +7,7 @@ Session.setDefault('renderLimit', 250);
 Session.setDefault('month', ((new Date()).getMonth()));
 
 Session.setDefault('resultsCount', 0);
-Session.setDefault('stationCount', 10000);
+Session.setDefault('stationCount', 1);
 
 // Grab the number of stations we expect to load
 loadStationCount = function(){

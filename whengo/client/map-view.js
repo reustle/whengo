@@ -1,3 +1,5 @@
+// Helpers
+
 Template.mapView.helpers({
 	
 	stationCount : function(){
@@ -20,6 +22,92 @@ Template.mapView.helpers({
 	maxTemp : function(){ return utils.prettyTemp(Session.get('maxTemp')); },
 	monthName : function(){ return MONTHS[Session.get('month')]; }
 });
+
+Template.stationDetailsModal.helpers({
+	
+	station : function(){
+		var station = Stations.findOne(Session.get('selectedStation'));
+		return station;
+	},
+	
+	
+});
+
+// Rendered
+Template.stationDetailsModal.rendered = function(){
+	
+	var station = Stations.findOne(Session.get('selectedStation'));
+	var avgTemps = station.avgt;
+	if(Session.get('unit') == 'F'){
+		var avgTemps = _.map(avgTemps, utils.cToF);
+	}
+	
+	var templateContext = this;
+	
+	var months = [
+		'Jan', 'Feb', 'Mar',
+		'Apr', 'May', 'Jun',
+		'Jul', 'Aug', 'Sep',
+		'Oct', 'Nov', 'Dec'
+	];
+	
+	setTimeout(function(){
+		var chart = c3.generate({
+			bindto : templateContext.find('.yearlyTempChart'),
+			size : {
+				height : 300
+			},
+			data : {
+				type : 'spline',
+				columns : [
+					['Avg Temp'].concat(avgTemps)
+				]
+			},
+			grid : {
+				y : {
+					show : true
+				}
+			},
+			axis : {
+				x : {
+					tick : {
+						culling : {
+							max : 1
+						},
+						format : function(xVal){
+							return months[xVal];
+						}
+					}
+				},
+				y : {
+					tick : {
+						format : function(yVal){
+							var thisLabel = yVal + '°' + Session.get('unit');
+							//if(thisLabel.indexOf('.') != -1){
+							//	return '';
+							//}
+							return thisLabel;
+						}
+					}
+				}
+			},
+			tooltip : {
+				format : {
+					title : function(yVal){
+						return months[yVal];
+					},
+					value : function(xVal){
+						return xVal + '°' + Session.get('unit');
+					}
+				}
+			},
+			legend : { show : false }
+		});
+	}, 250);
+	
+};
+
+// Global Functions
 
 queryStations = function(){
 	
@@ -114,15 +202,17 @@ setMarkers = function(){
 			},
 			properties : {
 				title : station.name,
-				// Hardcode them since they won't be reactive to unit changes
-				description : markerDesc
-
+				stationId : station._id
 			}
 		});
 	});
 	
 	// Update map with the new data
 	mapMarkers.setGeoJSON(markers);
+	
+	mapMarkers.on('click', function(e){
+		showStationDetails(e.layer.feature.properties.stationId);
+	});
 	
 	// Go through and update each icon with the new icon (lame)
 	map.eachLayer(function(marker){
@@ -131,5 +221,10 @@ setMarkers = function(){
 		}
 	});
 	
+};
+
+showStationDetails = function(stationId){
+	Session.set('selectedStation', stationId);
+	Modal.show('stationDetailsModal');
 };
 
