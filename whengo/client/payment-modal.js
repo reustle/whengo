@@ -11,7 +11,6 @@ Template.paymentModal.events({
 			expMonth : $('input[data-field=ccExpMonth]').val(),
 			expYear : $('input[data-field=ccExpYear]').val()
 		};
-		console.log(values);
 		
 		// Validate
 		var errors = false;
