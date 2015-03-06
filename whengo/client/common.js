@@ -1,7 +1,7 @@
 // Set default values
 Session.setDefault('unit', 'F');
-Session.setDefault('minTemp', 19);
-Session.setDefault('maxTemp', 29);
+Session.setDefault('minTemp', 20);
+Session.setDefault('maxTemp', 30);
 Session.setDefault('minPopulation', 1000000);
 Session.setDefault('renderLimit', 250);
 Session.setDefault('month', ((new Date()).getMonth()));
