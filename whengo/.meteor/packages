@@ -9,10 +9,8 @@ insecure
 twbs:bootstrap
 fourseven:scss
 accounts-password
-accounts-facebook
 ian:accounts-ui-bootstrap-3
 mrgalaxy:stripe
-accounts-twitter
 benjaminrh:event-hooks
 peppelg:bootstrap-3-modal
 peernohell:c3

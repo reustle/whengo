@@ -4,6 +4,7 @@ whengo.io
 Where is it warm?
 
 Tasks
+* Social sign in
 * Wider temp range when upgraded
 * Show loading bar before actually loading as soon as you log in (currently hangs)
 * Replace alerts with modals
