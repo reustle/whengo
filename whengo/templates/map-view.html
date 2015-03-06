@@ -4,7 +4,7 @@
 		<div id='mapContainer'></div>
 		
 		<div class='status-line'>
-			<b>{{ prettyNum stationCount }}{{#if gte stationCount renderLimit }}+{{/if}}</b> of {{ prettyNum totalStationCount }} weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
+			<b>{{ prettyNum stationCount }}{{#if gte stationCount renderLimit }}+{{/if}}</b> of {{ prettyNum totalStationCount }} visible weather stations report an average temperature of between <b>{{{ minTemp }}}</b> and <b>{{{ maxTemp }}}</b> for the month of <b>{{ monthName }}</b>
 		</div>
 		
 		{{#if gte stationCount renderLimit }}
@@ -18,7 +18,6 @@
 				<strong>Tip</strong>: Since there are so many results, drawing the pins on the map takes some time. You can reduce the number of results by narrowing your temperature range, or by zooming in on the map.
 			</div>
 		{{/if}}
-	
 		
 	</div>
 </template>

@@ -3,10 +3,11 @@
 		<div class='col-md-5 col-md-offset-1'>
 			
 			<h1>When Go?</h1>
-			<p>When Go is a tool that allows you to easily search through average temperateure data from weather stations around the world.</p>
+			<p>WhenGo is a tool that lets you easily search through average temperateure data from weather stations around the world.</p>
 			
 			<h1>Full Access</h1>
-			<p>Upgrade your account for a one time fee of $5 to unlock over 7,200 weather stations and expanded filtering capabilities.</p>
+			<p>Upgrade your account for a one time fee of $1 to unlock over 7,200 weather stations and expanded filtering capabilities. That&apos;s less than the price of a bottle of water!</p>
+			<img src='/teaser.jpg' class='img-responsive img-rounded' title='Unlock over 7,200 weather stations'/>
 			
 			<h1>About the Data</h1>
 			<p>The data is provided by the <a href='http://www.noaa.gov'>National Oceanic and Atmospheric Administration</a> and is calculated using the average monthly temperature over the past 10 years.</p>
@@ -20,7 +21,7 @@
 						<h1>Map Settings</h1>
 					</div>
 					<div class='col-md-6 upgrade-btn-container'>
-						{{#unless currentUser.profile.upgraded }}<a class='btn btn-sm btn-primary' data-action='upgrade'>Upgrade Account &minus; &#36;5 for life</a>{{/unless}}
+						{{#unless currentUser.profile.upgraded }}<a class='btn btn-sm btn-primary' data-action='upgrade'>Upgrade Account &minus; &#36;1</a>{{/unless}}
 						{{#if currentUser.profile.upgraded }}<em>Thanks for upgrading!</em>{{/if}}
 					</div>
 				</div>
@@ -63,6 +64,14 @@
 				
 			</div>
 		</div>
+		
+		<div class='col-md-12 site-footer'>
+			Built by <a href='http://reustle.io'>Shane Reustle</a> &minus;
+			Data from <a href=''>NOAA</a> &minus;
+			&copy; {{ currentYear }} whengo.io &minus;
+			<a href='mailto:me@shanereustle.com' target='_blank'>Contact Us</a>
+		</div>
+		
 	</div>
 </template>
 

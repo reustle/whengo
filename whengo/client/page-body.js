@@ -1,7 +1,13 @@
 Template.pageBody.helpers({
-	'unit' : function(){
+	
+	unit : function(){
 		return Session.get('unit');
+	},
+	
+	currentYear : function(){
+		return (new Date()).getFullYear();
 	}
+	
 });
 
 Template.pageBody.events({
