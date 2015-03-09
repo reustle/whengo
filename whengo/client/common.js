@@ -71,5 +71,9 @@ Meteor.startup(function(){
 		setMarkers();
 	});
 	
+	window.mapMarkers.on('click', function(e){
+		showStationDetails(e.layer.feature.properties.stationId);
+	});
+	
 });
 

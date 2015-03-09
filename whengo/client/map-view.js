@@ -210,10 +210,6 @@ setMarkers = function(){
 	// Update map with the new data
 	mapMarkers.setGeoJSON(markers);
 	
-	mapMarkers.on('click', function(e){
-		showStationDetails(e.layer.feature.properties.stationId);
-	});
-	
 	// Go through and update each icon with the new icon (lame)
 	map.eachLayer(function(marker){
 		if(marker.setIcon){
