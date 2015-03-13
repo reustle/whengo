@@ -177,7 +177,7 @@ setMarkers = function(){
 	
 	// Create a custom marker icon (circle icon)
 	var markerIcon = L.icon({
-		iconUrl : 'http://whengoio.meteor.com/dot.png',
+		iconUrl : 'https://whengo.io/dot.png',
 		iconSize : [9,9],
 		iconAnchor : [4,4]
 	});

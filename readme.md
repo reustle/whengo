@@ -4,6 +4,7 @@ whengo.io
 Where is it warm?
 
 Tasks
+* Screenshot of monthly graph in desc text
 * Websockets
 	* http://stackoverflow.com/questions/17014969/meteor-websocket-handshake-error-400-with-nginx
 * Social sign in
