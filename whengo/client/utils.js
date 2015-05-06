@@ -26,3 +26,9 @@ UI.registerHelper('prettyNum', function (a) {
 	return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 });
 
+UI.registerHelper('prettyNumTEST', function (a) {
+	var aSplit = a.toString().split('.');
+	a[0] = a[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	return a.join('.');
+});
+
