@@ -24,7 +24,7 @@ Meteor.startup(function(){
 	
 	// Initialize MapBox
 	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
-	window.map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([4.565, 12.304], 2);
+	window.map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([11.86, 0], 2);
 	window.mapMarkers = L.mapbox.featureLayer().addTo(map);
 	
 	// Add mapbox events
