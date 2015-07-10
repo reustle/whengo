@@ -1,4 +1,4 @@
 Meteor.publish('airports', function(){
-	return Airports.find();
+	return Airports.find({},{limit:2000});
 });
 
