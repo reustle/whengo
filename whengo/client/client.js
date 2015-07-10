@@ -9,7 +9,7 @@ Meteor.subscribe('airports', function(){
 	
 	var drawOnceMapboxExists = function(){
 		if(typeof(window.mapMarkers) != 'undefined'){
-			setMarkers();
+			drawMarkers();
 		}else{
 			setTimeout(drawOnceMapboxExists, 250);
 		}
@@ -29,13 +29,13 @@ Meteor.startup(function(){
 	
 	// Add mapbox events
 	window.map.on('dragend', function(){
-		setMarkers();
+		filterMarkers();
 	});
 	window.map.on('zoomend', function(){
-		setMarkers();
+		filterMarkers();
 	});
 	window.map.on('resize', function(){
-		setMarkers();
+		filterMarkers();
 	});
 	
 	window.mapMarkers.on('click', function(e){

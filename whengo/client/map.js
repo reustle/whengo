@@ -7,6 +7,52 @@ Template.map.helpers({
 	monthName : function(){ return MONTHS[Session.get('month')]; }
 });
 
+// General Map Helpers
+
+filterMarkers = function(){
+	
+	console.time('TOTAL');
+	
+	console.time('airportQuery');
+	
+	// Create our filter list
+	var visibleAirports = queryAirports();
+	
+	console.timeEnd('airportQuery');
+	console.time('setFilter');
+	
+	// Filter the markers
+	mapMarkers.setFilter(function(marker){
+		if(visibleAirports.indexOf(marker.properties.airportId) !== -1){
+			return true;
+		}
+	});
+	
+	console.timeEnd('setFilter');
+	
+	// Create a custom marker icon (circle icon)
+	var markerIcon = L.icon({
+		iconUrl : 'http://whengo.io/dot.png',
+		iconSize : [9,9],
+		iconAnchor : [4,4]
+	});
+	
+	console.time('updateIcon');
+	
+	// Go through and update each icon with the new icon (lame)
+	map.eachLayer(function(marker){
+		if(marker.setIcon){
+			marker.setIcon(markerIcon);
+		}
+	});
+	
+	console.timeEnd('updateIcon');
+	
+	console.timeEnd('TOTAL');
+	console.log('--');
+	
+}
+
 // General Functions
 
 queryAirports = function(){
@@ -41,13 +87,24 @@ queryAirports = function(){
 		
 	};
 	
+	// Make sure the avg high is within the range
 	whereFields[('th.' + monthIndex)] = {
+		$gte : minTemp,
+		$lte : maxTemp
+	};
+	
+	// Make sure the avg low is within the range
+	whereFields[('tl.' + monthIndex)] = {
 		$gte : minTemp,
 		$lte : maxTemp
 	};
 	
 	// Run the query
 	var results = Airports.find(whereFields, {
+		
+		fields : {
+			_id : 1
+		},
 		
 		limit : Session.get('renderLimit'),
 		
@@ -58,29 +115,22 @@ queryAirports = function(){
 		
 	}).fetch();
 	
-	return results;
+	var idsList = _.pluck(results, '_id');
+	
+	return idsList;
 	
 }
 
-setMarkers = function(){
+drawMarkers = function(){
 	
-	var results = queryAirports();
-	
-	// Selected Month
-	var monthIndex = Session.get('month');
+	// Load all airports
+	var results = Airports.find().fetch();
 	
 	// Create a new mapbox FeatureCollection
 	var markers = {
 		type: 'FeatureCollection',
 		features : []
 	};
-	
-	// Create a custom marker icon (circle icon)
-	var markerIcon = L.icon({
-		iconUrl : 'http://whengo.io/dot.png',
-		iconSize : [9,9],
-		iconAnchor : [4,4]
-	});
 	
 	// Create and insert a marker for each result airport into the FeatureCollection
 	_.each(results, function(airport){
@@ -104,12 +154,8 @@ setMarkers = function(){
 	// Update map with the new data
 	mapMarkers.setGeoJSON(markers);
 	
-	// Go through and update each icon with the new icon (lame)
-	map.eachLayer(function(marker){
-		if(marker.setIcon){
-			marker.setIcon(markerIcon);
-		}
-	});
+	// Apply the filters
+	filterMarkers();
 	
 };
 
