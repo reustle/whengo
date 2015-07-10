@@ -78,7 +78,7 @@ setMarkers = function(){
 	
 	// Create a custom marker icon (circle icon)
 	var markerIcon = L.icon({
-		iconUrl : 'https://whengo.io/dot.png',
+		iconUrl : 'http://whengo.io/dot.png',
 		iconSize : [9,9],
 		iconAnchor : [4,4]
 	});
