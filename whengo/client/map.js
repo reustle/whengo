@@ -7,7 +7,6 @@ Template.map.helpers({
 	monthName : function(){ return MONTHS[Session.get('month')]; }
 });
 
-
 // General Functions
 
 queryAirports = function(){
@@ -85,11 +84,6 @@ setMarkers = function(){
 	
 	// Create and insert a marker for each result airport into the FeatureCollection
 	_.each(results, function(airport){
-		
-		var thisTemp = parseInt(airport.th[monthIndex], 10);
-		
-		var markerDesc = thisTemp + '&deg;F';
-		//markerDesc += '<br/><a href="#" data-airport="" data-action="showYearGraph">View Yearly Averages Graph</a>';
 		
 		markers.features.push({
 			type : 'Feature',
