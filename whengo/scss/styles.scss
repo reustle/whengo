@@ -1,5 +1,5 @@
 body {
-	margin-top: 55px;
+	margin-top: 65px;
 }
 
 h1 {
@@ -12,11 +12,6 @@ h1 {
 		height: 400px;
 	}
 
-	.status-line {
-		padding: 10px 5px;
-		color: #555;
-	}
-	
 	.leaflet-popup-pane {
 		display: none;
 	}
@@ -24,33 +19,12 @@ h1 {
 }
 
 .form-container {
-	/* Loading Box */
-	.loadingBox .progress {
-		margin-bottom: 3px;
-	}
-	.loadingBox .labelText {
-		font-size: 12px;
-		font-weight: bold;
-	}
-
+	
 	/* Search Form */
 	.searchForm {
 		min-height: 80px;
 		padding: 20px 0px;
 		
-		.sliderContainer {
-			text-align: left;
-			
-			@media screen and (min-width: 768px){
-				padding-left: 0px;
-			}
-
-			.slider-selection {
-				background-image: linear-gradient(to bottom, #89cdef 0%, #81bfde 100%);
-				background-repeat: repeat-x;
-			}
-		}
-
 		.slider {
 			width: 100%;
 		}
@@ -79,10 +53,6 @@ h1 {
 
 .page-body {
 	
-	.upgrade-btn-container {
-		text-align: right;
-	}
-	
 	>.col-md-5 {
 		margin-top: 20px;;
 		margin-bottom: 20px;;
@@ -104,11 +74,5 @@ h1 {
 	font-size: 12px;
 	color: #555;
 	margin: 25px 0px;
-}
-
-.modal-payment {
-	form {
-		margin: 25px 0px;
-	}
 }
 

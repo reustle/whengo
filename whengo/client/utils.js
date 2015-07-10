@@ -1,17 +1,5 @@
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-utils = {
-	cToF : function(temp){
-		return Math.round(temp * 9 / 5 + 32);
-	},
-	prettyTemp : function(temp){
-		if(Session.get('unit') == 'F'){
-			return utils.cToF(temp) + '&deg;F';
-		}
-		return Math.round(temp) + '&deg;C';
-	}
-}
-
 // Spacebars helpers
 
 UI.registerHelper('equals', function (a, b) {
@@ -24,11 +12,5 @@ UI.registerHelper('gte', function (a, b) {
 
 UI.registerHelper('prettyNum', function (a) {
 	return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-});
-
-UI.registerHelper('prettyNumTEST', function (a) {
-	var aSplit = a.toString().split('.');
-	a[0] = a[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-	return a.join('.');
 });
 

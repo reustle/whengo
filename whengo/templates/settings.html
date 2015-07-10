@@ -1,0 +1,64 @@
+<template name='settings'>
+	
+	<h1>Map Settings</h1>
+	
+	<form class='form-horizontal'>
+		
+		{{! Month }}
+		<div class='form-group'>
+			<label class='control-label col-md-4'>Month</label>
+			<div class='col-md-8'>
+				<select data-field='month' class='form-control'>
+					<option value='0'>January</option>
+					<option value='1'>February</option>
+					<option value='2'>March</option>
+					<option value='3'>April</option>
+					<option value='4'>May</option>
+					<option value='5'>June</option>
+					<option value='6'>July</option>
+					<option value='7'>August</option>
+					<option value='8'>September</option>
+					<option value='9'>October</option>
+					<option value='10'>November</option>
+					<option value='11'>December</option>
+				</select>
+			</div>
+		</div>
+		
+		{{! Temp Range }}
+		<div class='form-group'>
+			<label class='control-label col-md-4'>Temp Range</label>
+			<div class='col-md-8'>
+				<div class='row'>
+					<div class='col-md-6'>
+						<div class='input-group'>
+							<input data-field='minTemp' type='text' class='form-control' placeholder='Min'/>
+							<div class='input-group-addon'>&deg;F</div>
+						</div>
+					</div>
+					<div class='col-md-6'>
+						<div class='input-group'>
+							<input data-field='maxTemp' type='text' class='form-control' placeholder='Max'/>
+							<div class='input-group-addon'>&deg;F</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{{! Render Limit }}
+		<div class='form-group'>
+			<label class='control-label col-md-4'>Render Limit</label>
+			<div class='col-md-8'>
+				<select class='form-control' data-field='renderLimit'>
+					<option value='250'>Show up to 250 stations</option>
+					<option value='500'>Show up to 500 stations</option>
+					<option value='25000'>Show all stations (slow)</option>
+				</select>
+			</div>
+		</div>
+		
+	</form>
+	
+</template>
+
