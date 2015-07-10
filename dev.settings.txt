@@ -1,5 +1,0 @@
--p 3000:8080
--e ROOT_URL=http://dev.whengo.io
--e BIND_IP=0.0.0.0
--e PORT=8080
-
