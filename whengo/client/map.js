@@ -64,6 +64,8 @@ queryAirports = function(){
 
 setMarkers = function(){
 	
+	console.time('setMarkers');
+	
 	var results = queryAirports();
 	
 	// Selected Month
@@ -110,6 +112,8 @@ setMarkers = function(){
 			marker.setIcon(markerIcon);
 		}
 	});
+	
+	console.timeEnd('setMarkers');
 	
 };
 
