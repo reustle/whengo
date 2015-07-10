@@ -14,7 +14,7 @@ Template.settings.events({
 		Session.set('renderLimit', parseInt($('select[data-field=renderLimit]').val(), 10));
 		
 		// Redraw the markers
-		setMarkers();
+		filterMarkers();
 		
 	}
 	
