@@ -1,5 +1,9 @@
-var migrateData = function(){
-	// Unused
+migrateData = function(){
+	return false;
+	
+	if(!raw_data){
+		return;
+	}
 	
 	var data = raw_data;
 	
@@ -20,7 +24,7 @@ var migrateData = function(){
 			}
 		};
 		
-		//Airports.insert(new_airport);
+		Airports.insert(new_airport);
 		
 		count += 1;
 		console.log(count);
