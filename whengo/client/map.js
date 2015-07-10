@@ -11,15 +11,8 @@ Template.map.helpers({
 
 filterMarkers = function(){
 	
-	console.time('TOTAL');
-	
-	console.time('airportQuery');
-	
 	// Create our filter list
 	var visibleAirports = queryAirports();
-	
-	console.timeEnd('airportQuery');
-	console.time('setFilter');
 	
 	// Filter the markers
 	mapMarkers.setFilter(function(marker){
@@ -28,8 +21,6 @@ filterMarkers = function(){
 		}
 	});
 	
-	console.timeEnd('setFilter');
-	
 	// Create a custom marker icon (circle icon)
 	var markerIcon = L.icon({
 		iconUrl : 'http://whengo.io/dot.png',
@@ -37,19 +28,12 @@ filterMarkers = function(){
 		iconAnchor : [4,4]
 	});
 	
-	console.time('updateIcon');
-	
 	// Go through and update each icon with the new icon (lame)
 	map.eachLayer(function(marker){
 		if(marker.setIcon){
 			marker.setIcon(markerIcon);
 		}
 	});
-	
-	console.timeEnd('updateIcon');
-	
-	console.timeEnd('TOTAL');
-	console.log('--');
 	
 }
 
