@@ -16,6 +16,19 @@ Template.settings.events({
 		// Redraw the markers
 		setTimeout(filterMarkers, 1);
 		
+	},
+	
+	'click label[data-label=month]': function(e){
+		e.preventDefault();
+		
+		var el = $('select[data-field=month]');
+		if(parseInt(el.val(),10) == 11){
+			el.val(0);
+		}else{
+			el.val(parseInt(el.val(),10) + 1);
+		}
+		
+		el.trigger('change');
 	}
 	
 });
