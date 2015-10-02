@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<title>WhenGo | Where is it warm?</title>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<link rel='shortcut icon' sizes='16x16' href='/static/favicon.ico' type='image/x-icon'>
+		
+		<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+		<link href='/static/lib/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
+		<link href='/static/style.css' rel='stylesheet' />
+		
+	</head>
+
+	<body>
+		
+		<nav class='navbar navbar-inverse navbar-fixed-top'>
+			<div class='container'>
+				<div class='navbar-header'>
+					<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+						<span class='sr-only'>Toggle navigation</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='/'>whengo.io</a>
+				</div>
+				<div id='navbar' class='collapse navbar-collapse'>
+					<ul class='nav navbar-nav'>
+					</ul>
+					<ul class='nav navbar-nav navbar-right'>
+						<li><a href='#about'>About</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class='map-area'>
+			<div id='mapContainer'></div>
+		</div>
+		
+		<div class='container'>
+			
+			<div class='row page-body'>
+				
+				<div class='col-md-5 col-md-offset-1'>
+					<a name='about'></a>
+					
+					<h1>When should you go?</h1>
+					<p>
+						WhenGo is a simple tool that lets you search through average temperateure
+						data from airport weather stations around the world.
+					</p>
+					<p>
+						You can also access yearly high and low temperature information by selecting
+						an individual airport.
+					</p>
+					
+				</div>
+				
+				<div class='col-md-5'>
+					<div class='well search-form'>
+						
+						<h1>Map Settings</h1>
+						
+						<form class='form-horizontal'>
+							
+							<!-- Month -->
+							<div class='form-group'>
+								<label data-label='month' class='control-label col-md-4'>Month</label>
+								<div class='col-md-8'>
+									<select data-field='month' class='form-control'>
+										<option value='0'>January</option>
+										<option value='1'>February</option>
+										<option value='2'>March</option>
+										<option value='3'>April</option>
+										<option value='4'>May</option>
+										<option value='5'>June</option>
+										<option value='6'>July</option>
+										<option value='7'>August</option>
+										<option value='8'>September</option>
+										<option value='9'>October</option>
+										<option value='10'>November</option>
+										<option value='11'>December</option>
+									</select>
+								</div>
+							</div>
+							
+							<!-- Temp Range -->
+							<div class='form-group'>
+								<label class='control-label col-md-4'>Temp Range</label>
+								<div class='col-md-8'>
+									<div class='row'>
+										<div class='col-md-6'>
+											<div class='input-group'>
+												<input data-field='minTemp' type='text' class='form-control' placeholder='Min'/>
+												<div class='input-group-addon'>&deg;C</div>
+											</div>
+										</div>
+										<div class='col-md-6'>
+											<div class='input-group'>
+												<input data-field='maxTemp' type='text' class='form-control' placeholder='Max'/>
+												<div class='input-group-addon'>&deg;C</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Render Limit -->
+							<div class='form-group'>
+								<label class='control-label col-md-4'>Render Limit</label>
+								<div class='col-md-8'>
+									<select class='form-control' data-field='renderLimit'>
+										<option value='250'>Show up to 250 stations</option>
+										<option value='500'>Show up to 500 stations</option>
+										<option value='25000'>Show all stations (slow)</option>
+									</select>
+								</div>
+							</div>
+							
+						</form>
+						
+					</div>
+				</div>
+				
+				<div class='col-md-12 site-footer'>
+					Built by <a href='http://crath.com'>Crath</a> &minus;
+					&copy; 2015 whengo.io &minus;
+					<a href='mailto:hello@crath.com' target='_blank'>Contact Us</a>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+		<script src='/static/data.js'></script>
+		<script src='/static/lib/lodash.min.js'></script>
+		<script src='/static/js/utils.js'></script>
+		<script src='/static/js/main.js'></script>
+	  
+	</body>
+</html>
+

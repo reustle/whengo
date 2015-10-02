@@ -73,14 +73,14 @@ queryAirports = function(){
 	
 	// Make sure the avg high is within the range
 	whereFields[('th.' + monthIndex)] = {
-		$gte : minTemp,
-		$lte : maxTemp
+		$gte : cToF(minTemp),
+		$lte : cToF(maxTemp)
 	};
 	
 	// Make sure the avg low is within the range
 	whereFields[('tl.' + monthIndex)] = {
-		$gte : minTemp,
-		$lte : maxTemp
+		$gte : cToF(minTemp),
+		$lte : cToF(maxTemp)
 	};
 	
 	// Run the query

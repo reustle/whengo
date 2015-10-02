@@ -1,6 +1,6 @@
 // Set default values
-Session.setDefault('minTemp', 65);
-Session.setDefault('maxTemp', 85);
+Session.setDefault('minTemp', 22);
+Session.setDefault('maxTemp', 32);
 Session.setDefault('renderLimit', 250);
 Session.setDefault('month', ((new Date()).getMonth()));
 

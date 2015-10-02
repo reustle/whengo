@@ -14,3 +14,8 @@ UI.registerHelper('prettyNum', function (a) {
 	return a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 });
 
+cToF = function(celcius){
+	celcius = parseFloat(celcius);
+	return (celcius * (9 / 5)) + 32;
+}
+
