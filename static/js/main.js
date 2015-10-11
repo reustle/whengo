@@ -227,6 +227,12 @@ var showDetailsModal = function(airportId){
 	// Show the modal
 	$('#details-modal').modal('show');
 	
+	// Fix the chart bounds after we've rendered
+	setTimeout(function(){
+		var containerWidth = $('.chart-container').width();
+		chart.setBounds(50, 20, (containerWidth - 70), 340);
+	}, 200);
+	
 };
 
 var drawChart = function(airport){
@@ -236,8 +242,6 @@ var drawChart = function(airport){
 	
 	// Initialize a Dimple chart
 	chart = new dimple.chart(svg, []);
-	
-	chart.setBounds(50, 20, 705, 350);
 	
 	// Recognize the (Month) as the x axis, as the type time
 	var x = chart.addTimeAxis('x', 'Month', null, '%b');
