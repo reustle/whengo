@@ -3,8 +3,7 @@ Where is it warm?
 
 
 ## Tasks
-* "All Months" option in month selector
-* Add population data to sort by
+* Show render warning > 1000 results
 * Add missing city names
 * Loading state
 * Set map language to all English

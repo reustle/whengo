@@ -74,17 +74,28 @@ var queryAirports = function(){
 	// Filter the full airports list
 	var results = _.filter(airportData, function(airport){
 		
-		var tooHot = (airport.th[monthIndex] > maxTemp);
-		var tooCold = (airport.tl[monthIndex] < minTemp);
-		
-		if(tooHot || tooCold){
-			return false;
-		}
-		
+		// See if the airport exists inside the visible map bounds
 		if(airport.lon < mapNW.lng || airport.lon > mapSE.lng){
 			return false;
 		}
 		if(airport.lat < mapSE.lat || airport.lat > mapNW.lat){
+			return false;
+		}
+		
+		// See if the temperature meeds the search rules
+		if(monthIndex){
+			var tooHot = (airport.th[monthIndex] > maxTemp);
+			var tooCold = (airport.tl[monthIndex] < minTemp);
+		}else{
+			var tooHot = _.some(airport.th, function(temp){
+				return temp > maxTemp;
+			});
+			var tooCold = _.some(airport.tl, function(temp){
+				return temp < minTemp;
+			});
+		}
+		
+		if(tooHot || tooCold){
 			return false;
 		}
 		
