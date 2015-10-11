@@ -1,5 +1,4 @@
 # whengo.io
-
 Where is it warm?
 
 
@@ -9,3 +8,4 @@ Where is it warm?
 * Add missing city names
 * Loading state
 * Set map language to all English
+
