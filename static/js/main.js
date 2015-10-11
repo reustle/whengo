@@ -184,10 +184,14 @@ var showDetailsModal = function(airportId){
 	// Build the data series for the chart
 	var seriesData = [];
 	
+	var generateMonthVal = function(val){
+		return new Date('2015-' + (val+1) + '-01');
+	}
+	
 	_.forEach(airport.th, function(val, idx){
 		seriesData.push({
 			'Series': 'Temp High',
-			'Month': (idx + 1),
+			'Month': generateMonthVal(idx),
 			'Temperature': val
 		});
 	});
@@ -195,7 +199,7 @@ var showDetailsModal = function(airportId){
 	_.forEach(airport.tl, function(val, idx){
 		seriesData.push({
 			'Series': 'Temp Low',
-			'Month': (idx + 1),
+			'Month': generateMonthVal(idx),
 			'Temperature': val
 		});
 	});
@@ -224,20 +228,22 @@ var drawChart = function(airport){
 	
 	chart.setBounds(50, 20, 705, 350);
 	
-	var x = chart.addCategoryAxis('x', 'Month');
-	x.addOrderRule('Date');
+	// Recognize the (Month) as the x axis, as the type time
+	var x = chart.addTimeAxis('x', 'Month', null, '%b');
 	
+	// Recognize the (Temperature) as the y axis
 	chart.addMeasureAxis('y', 'Temperature');
 	
+	// Define which key defines each series
 	var s = chart.addSeries('Series', dimple.plot.line);
+	
+	// Smooth the line
 	s.interpolation = 'cardinal';
 	
 	// Set line colors
 	chart.assignColor("Temp High", 'rgb(210,107,95)', 'rgb(210,107,95)', 0.8);
 	chart.assignColor("Temp Low", 'rgb(107,148,176)', 'rgb(107,148,176)', 0.8);
 	
-	chart.draw();
-		
 }
 
 
