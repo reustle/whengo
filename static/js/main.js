@@ -221,6 +221,11 @@ var showDetailsModal = function(airportId){
 	}
 	
 	// Update the chart
+	var newYAxisMin = _.min(seriesData, function(dataPoint) {
+		return dataPoint['Temperature'];
+	})['Temperature'];
+	chartYAxis.overrideMin = newYAxisMin - 3;
+	
 	chart.data = seriesData;
 	chart.draw();
 	
@@ -244,10 +249,10 @@ var drawChart = function(airport){
 	chart = new dimple.chart(svg, []);
 	
 	// Recognize the (Month) as the x axis, as the type time
-	var lines = chart.addTimeAxis('x', 'Month', null, '%b');
+	var xaxis = chart.addTimeAxis('x', 'Month', null, '%b');
 	
 	// Recognize the (Temperature) as the y axis
-	chart.addMeasureAxis('y', 'Temperature');
+	chartYAxis = chart.addMeasureAxis('y', 'Temperature');
 	
 	// Define which key defines each series
 	var series = chart.addSeries('Series', dimple.plot.line);
@@ -266,7 +271,8 @@ var drawChart = function(airport){
 
 // Init
 
-var map, mapMarkers, chart;
+// Global vars
+var map, chartYAxis, mapMarkers, chart;
 
 setDefaults();
 initSettings();
