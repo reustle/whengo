@@ -1,4 +1,5 @@
 // Map
+
 var drawMarkers = function(){
 	
 	//console.time('drawMarkers');
@@ -117,9 +118,7 @@ var initMap = function(){
 	});
 	
 	mapMarkers.on('click', function(e){
-		// TODO
-		//Session.set('selectedAirport', e.layer.feature.properties.airportId);
-		//Modal.show('detailsModal');
+		showDetailsModal(e.layer.feature.properties.airportId);
 	});
 	
 	var drawOnceMapboxExists = function(){
@@ -173,9 +172,78 @@ $('.search-form select').change(function(){
 });
 
 
+// Details Modal
+
+var showDetailsModal = function(airportId){
+	
+	var airport = _.findWhere(airportData, { ia: airportId });
+	
+	// Set the city / country title
+	$('#details-modal .modal-title').html(airport.ci + ', ' + airport.co);
+	
+	// Build the data series for the chart
+	var seriesData = [];
+	
+	_.forEach(airport.th, function(val, idx){
+		seriesData.push({
+			'Series': 'Temp High',
+			'Month': (idx + 1),
+			'Temperature': val
+		});
+	});
+	
+	_.forEach(airport.tl, function(val, idx){
+		seriesData.push({
+			'Series': 'Temp Low',
+			'Month': (idx + 1),
+			'Temperature': val
+		});
+	});
+	
+	// Draw the chart if it doesn't exist
+	if(!chart){
+		drawChart();
+	}
+	
+	// Update the chart
+	chart.data = seriesData;
+	chart.draw();
+	
+	// Show the modal
+	$('#details-modal').modal('show');
+	
+};
+
+var drawChart = function(airport){
+	
+	// Create the SVG element
+	var svg = dimple.newSvg('#details-modal .chart-container', '100%', '100%');
+	
+	// Initialize a Dimple chart
+	chart = new dimple.chart(svg, []);
+	
+	chart.setBounds(50, 20, 705, 350);
+	
+	var x = chart.addCategoryAxis('x', 'Month');
+	x.addOrderRule('Date');
+	
+	chart.addMeasureAxis('y', 'Temperature');
+	
+	var s = chart.addSeries('Series', dimple.plot.line);
+	s.interpolation = 'cardinal';
+	
+	// Set line colors
+	chart.assignColor("Temp High", 'rgb(210,107,95)', 'rgb(210,107,95)', 0.8);
+	chart.assignColor("Temp Low", 'rgb(107,148,176)', 'rgb(107,148,176)', 0.8);
+	
+	chart.draw();
+		
+}
+
+
 // Init
 
-var map, mapMarkers;
+var map, mapMarkers, chart;
 
 setDefaults();
 initSettings();
