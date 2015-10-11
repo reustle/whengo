@@ -1,7 +1,7 @@
 // Map
 var drawMarkers = function(){
 	
-	console.time('drawMarkers');
+	//console.time('drawMarkers');
 	
 	// Create a new mapbox FeatureCollection
 	var markers = {
@@ -32,7 +32,7 @@ var drawMarkers = function(){
 	// Update map with the new data
 	mapMarkers.setGeoJSON(markers);
 	
-	console.timeEnd('drawMarkers');
+	//console.timeEnd('drawMarkers');
 	
 	// Create a custom marker icon (circle icon)
 	var markerIcon = L.icon({
@@ -91,7 +91,8 @@ var queryAirports = function(){
 		
 	});
 	
-	console.log('Results:', results.length);
+	// Update the results label
+	$('span[data-label=resultsCount]').html(results.length);
 	
 	return results;
 	
