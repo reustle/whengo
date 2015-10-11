@@ -25,6 +25,9 @@ h1 {
 }
 
 /* Settings Form */
+.results-count {
+	color: #999;
+}
 .search-form h1 {
 	margin-top: 0px;
 }
