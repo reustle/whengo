@@ -251,7 +251,7 @@ var drawChart = function(airport){
 	
 	// Define which key defines each series
 	var series = chart.addSeries('Series', dimple.plot.line);
-	series.lineWeight = 4;
+	series.lineWeight = 3;
 	series.lineMarkers = true;
 	
 	// Smooth the line
