@@ -244,16 +244,18 @@ var drawChart = function(airport){
 	chart = new dimple.chart(svg, []);
 	
 	// Recognize the (Month) as the x axis, as the type time
-	var x = chart.addTimeAxis('x', 'Month', null, '%b');
+	var lines = chart.addTimeAxis('x', 'Month', null, '%b');
 	
 	// Recognize the (Temperature) as the y axis
 	chart.addMeasureAxis('y', 'Temperature');
 	
 	// Define which key defines each series
-	var s = chart.addSeries('Series', dimple.plot.line);
+	var series = chart.addSeries('Series', dimple.plot.line);
+	series.lineWeight = 4;
+	series.lineMarkers = true;
 	
 	// Smooth the line
-	s.interpolation = 'cardinal';
+	series.interpolation = 'cardinal';
 	
 	// Set line colors
 	chart.assignColor("Temp High", 'rgb(210,107,95)', 'rgb(210,107,95)', 0.8);
