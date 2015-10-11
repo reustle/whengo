@@ -135,7 +135,7 @@ var initMap = function(){
 
 var setDefaults = function(){
 	if(!Session.get('minTemp')){
-		Session.set('minTemp', 22);
+		Session.set('minTemp', 24);
 	}
 	if(!Session.get('maxTemp')){
 		Session.set('maxTemp', 35);
@@ -146,10 +146,37 @@ var setDefaults = function(){
 
 }
 
+
+// Settings
+
+var initSettings = function(){
+	
+	// Generate temp dropdowns
+	_.each(_.range(-5, 41, 1), function(temp){
+		var newOpt = $('<option>');
+		newOpt.val(temp).html(temp + ' &deg;C');
+		$('select[data-field=minTemp]').append(newOpt);
+		$('select[data-field=maxTemp]').append(newOpt.clone());
+	});
+	
+	// Set initial values
+	$('select[data-field=month').val(Session.get('month'));
+	$('select[data-field=minTemp').val(Session.get('minTemp'));
+	$('select[data-field=maxTemp').val(Session.get('maxTemp'));
+	
+}
+
+$('.search-form select').change(function(){
+	Session.set($(this).attr('data-field'), parseInt($(this).val(), 10));
+	drawMarkers();
+});
+
+
 // Init
 
 var map, mapMarkers;
 
 setDefaults();
+initSettings();
 initMap();
 

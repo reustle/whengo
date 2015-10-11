@@ -91,30 +91,12 @@
 								<div class='col-md-8'>
 									<div class='row'>
 										<div class='col-md-6'>
-											<div class='input-group'>
-												<input data-field='minTemp' type='text' class='form-control' placeholder='Min'/>
-												<div class='input-group-addon'>&deg;C</div>
-											</div>
+											<select data-field='minTemp' class='form-control'></select>
 										</div>
 										<div class='col-md-6'>
-											<div class='input-group'>
-												<input data-field='maxTemp' type='text' class='form-control' placeholder='Max'/>
-												<div class='input-group-addon'>&deg;C</div>
-											</div>
+											<select data-field='maxTemp' class='form-control'></select>
 										</div>
 									</div>
-								</div>
-							</div>
-							
-							<!-- Render Limit -->
-							<div class='form-group'>
-								<label class='control-label col-md-4'>Render Limit</label>
-								<div class='col-md-8'>
-									<select class='form-control' data-field='renderLimit'>
-										<option value='250'>Show up to 250 stations</option>
-										<option value='500'>Show up to 500 stations</option>
-										<option value='25000'>Show all stations (slow)</option>
-									</select>
 								</div>
 							</div>
 							
@@ -136,6 +118,7 @@
 		<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
 		<script src='/static/data.js'></script>
 		<script src='/static/lib/lodash.min.js'></script>
+		<script src='/static/lib/jquery-2.1.4.min.js'></script>
 		<script src='/static/js/utils.js'></script>
 		<script src='/static/js/main.js'></script>
 	  
