@@ -177,6 +177,14 @@ var initSettings = function(){
 	
 }
 
+$('.search-form label[data-label=month]').click(function(){
+	var currentVal = parseInt($('.search-form select[data-field=month]').val(), 10) + 1;
+	if(currentVal == 12){
+		currentVal = 0;
+	}
+	$('.search-form select[data-field=month]').val(currentVal).change();
+});
+
 $('.search-form select').change(function(){
 	Session.set($(this).attr('data-field'), parseInt($(this).val(), 10));
 	drawMarkers();
