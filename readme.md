@@ -9,3 +9,10 @@ Where is it warm?
 - Loading state
 - Set map language to all English
 - Fix or remove about button in top right
+
+## Running Locally
+
+```
+python -m SimpleHTTPServer
+```
+
