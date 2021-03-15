@@ -113,7 +113,7 @@ var queryAirports = function(){
 var initMap = function(){
 	
 	// Initialize MapBox
-	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJESzd6YVRnIn0.Hh9AwQw1X0PR_TOewZMMzA';
+	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJja21hcDF2eXUwenRnMnBwaHRkd2NqZTQzIn0.uXYQ-dpsKla1WTxr7xO2cw';
 	map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([11.86, 0], 2);
 	mapMarkers = L.mapbox.featureLayer().addTo(map);
 	
