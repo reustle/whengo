@@ -113,9 +113,18 @@ var queryAirports = function(){
 var initMap = function(){
 	
 	// Initialize MapBox
-	L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJja21hcDF2eXUwenRnMnBwaHRkd2NqZTQzIn0.uXYQ-dpsKla1WTxr7xO2cw';
-	map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([11.86, 0], 2);
-	mapMarkers = L.mapbox.featureLayer().addTo(map);
+	//L.mapbox.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJja21hcDF2eXUwenRnMnBwaHRkd2NqZTQzIn0.uXYQ-dpsKla1WTxr7xO2cw';
+	//map = L.mapbox.map('mapContainer', 'reustle.l8pgo1n1').setView([11.86, 0], 2);
+	//mapMarkers = L.mapbox.featureLayer().addTo(map);
+	mapMarkers = null;
+	
+	mapboxgl.accessToken = 'pk.eyJ1IjoicmV1c3RsZSIsImEiOiJja21hcDF2eXUwenRnMnBwaHRkd2NqZTQzIn0.uXYQ-dpsKla1WTxr7xO2cw'
+	var map = new mapboxgl.Map({
+	  container: 'mapContainer',
+	  style: 'mapbox://styles/mapbox/light-v10',
+	  zoom: 2,
+	  center: [11.86, 0]
+	})
 	
 	// Add mapbox events
 	map.on('dragend', function(){
